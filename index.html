@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>German Exam Timers</title>
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" sizes="192x192">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes soft-glow {
+      0%, 100% { box-shadow: 0 0 6px var(--glow), 0 0 12px var(--glow); }
+      50% { box-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow); }
+    }
+    .glow-active { animation: soft-glow 2s infinite alternate; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center bg-gradient-to-br from-slate-900 via-slate-800 to-black text-white p-4">
+
+  <h1 class="sr-only">German Exam Timers</h1>
+
+  <!-- Level Selector -->
+  <div class="mb-4 w-full flex justify-center">
+    <select id="levelSelect" onchange="loadLevel()"
+      class="px-3 py-2 rounded-lg bg-gray-800 text-white border border-pink-400 focus:ring-2 focus:ring-pink-500 text-sm sm:text-base">
+      <option value="">-- Select Level --</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+      <option value="C1">C1</option>
+      <option value="C2">C2</option>
+    </select>
+  </div>
+
+  <!-- Timers -->
+  <main id="app" class="w-full max-w-6xl">
+    <div id="timers" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+    <div id="totalSummary" class="mt-4 px-4 py-2 rounded-full text-base sm:text-lg font-bold shadow-lg bg-gray-900 bg-opacity-70 hidden mx-auto max-w-md text-center"></div>
+    <div class="flex justify-center mt-4">
+      <button id="addCustomBtn" class="mt-4 px-5 py-2 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-xl shadow-lg transition">+ Add Custom Timer</button>
+    </div>
+  </main>
+
+  <!-- packaged alarm sound -->
+  <audio id="alarmAudio" preload="auto" src="sounds/alarm.wav"></audio>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(() => console.log('Service Worker registered'));
+    }
+  </script>
+</body>
+</html>
